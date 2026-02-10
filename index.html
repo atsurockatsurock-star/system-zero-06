@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Freelance/Side-Hustle Tax Estimator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background-color: #f0fdf4; font-family: sans-serif; }
+        .card { background: white; padding: 2rem; border-radius: 1rem; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); border: 1px solid #d1fae5; }
+        .input-box { width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; margin-top: 5px; }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-4">
+    <div class="card w-full max-w-lg">
+        <h1 class="text-2xl font-bold text-emerald-800 mb-2">Freelance Income Calc</h1>
+        <p class="text-sm text-gray-500 mb-6">Estimate your actual "Take-Home" pay after taxes.</p>
+
+        <div class="space-y-4">
+            <div>
+                <label class="text-sm font-bold text-gray-700">Annual Revenue (Sales)</label>
+                <input type="number" id="revenue" class="input-box" placeholder="5000000" oninput="calc()">
+            </div>
+            
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="text-sm font-bold text-gray-700">Expenses</label>
+                    <input type="number" id="expense" class="input-box" placeholder="1000000" oninput="calc()">
+                </div>
+                <div>
+                    <label class="text-sm font-bold text-gray-700">Tax Rate (Est. %)</label>
+                    <input type="number" id="rate" class="input-box" value="30" placeholder="30" oninput="calc()">
+                    <p class="text-xs text-gray-400 mt-1">*Include Income Tax, Residence Tax, Insurance</p>
+                </div>
+            </div>
+
+            <div class="bg-emerald-50 p-6 rounded-xl mt-6 border border-emerald-100">
+                <div class="flex justify-between items-center mb-2">
+                    <span class="text-sm text-gray-600">Taxable Income</span>
+                    <span id="taxable" class="font-bold text-gray-800">0</span>
+                </div>
+                <div class="flex justify-between items-center mb-4">
+                    <span class="text-sm text-red-500 font-bold">Estimated Tax (-)</span>
+                    <span id="tax" class="font-bold text-red-500">0</span>
+                </div>
+                <div class="border-t border-emerald-200 pt-4 flex justify-between items-center">
+                    <span class="text-lg font-bold text-emerald-900">Net Take-Home</span>
+                    <span id="net" class="text-3xl font-black text-emerald-600">0</span>
+                </div>
+            </div>
+
+            <div class="mt-6 text-center">
+                <p class="text-xs text-gray-500 mb-2">Paying too much tax?</p>
+                <a href="#" class="block w-full bg-blue-600 text-white font-bold py-3 rounded-lg hover:bg-blue-700 transition">
+                    Find a Tax Accountant (Free) &rarr;
+                </a>
+                <p class="text-xs text-gray-400 mt-2">or Try Cloud Accounting Software</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function calc() {
+            const rev = parseFloat(document.getElementById('revenue').value) || 0;
+            const exp = parseFloat(document.getElementById('expense').value) || 0;
+            const rate = parseFloat(document.getElementById('rate').value) || 0;
+
+            const taxable = rev - exp;
+            const taxAmount = taxable > 0 ? taxable * (rate / 100) : 0;
+            const net = taxable - taxAmount;
+
+            document.getElementById('taxable').innerText = taxable.toLocaleString();
+            document.getElementById('tax').innerText = Math.floor(taxAmount).toLocaleString();
+            document.getElementById('net').innerText = Math.floor(net).toLocaleString();
+        }
+    </script>
+</body>
+</html>
