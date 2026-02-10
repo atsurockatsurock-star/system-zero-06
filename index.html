@@ -1,60 +1,66 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Freelance/Side-Hustle Tax Estimator</title>
+    <title>個人事業主・副業 手取りシミュレーター</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { background-color: #f0fdf4; font-family: sans-serif; }
+        body { background-color: #f0fdf4; font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif; }
         .card { background: white; padding: 2rem; border-radius: 1rem; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); border: 1px solid #d1fae5; }
-        .input-box { width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; margin-top: 5px; }
+        .input-box { width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; margin-top: 5px; font-size: 1.1rem; }
+        .label-text { font-size: 0.9rem; font-weight: bold; color: #374151; }
     </style>
 </head>
-<body class="flex items-center justify-center min-h-screen p-4">
+<body class="flex items-center justify-center min-h-screen p-4 bg-slate-50">
     <div class="card w-full max-w-lg">
-        <h1 class="text-2xl font-bold text-emerald-800 mb-2">Freelance Income Calc</h1>
-        <p class="text-sm text-gray-500 mb-6">Estimate your actual "Take-Home" pay after taxes.</p>
+        <div class="text-center mb-6">
+            <h1 class="text-2xl font-black text-emerald-800">手取りシミュレーター</h1>
+            <p class="text-xs text-gray-500 mt-1">個人事業主・フリーランス・副業対応</p>
+        </div>
 
-        <div class="space-y-4">
+        <div class="space-y-5">
             <div>
-                <label class="text-sm font-bold text-gray-700">Annual Revenue (Sales)</label>
-                <input type="number" id="revenue" class="input-box" placeholder="5000000" oninput="calc()">
+                <label class="label-text">年間売上 (収入)</label>
+                <input type="number" id="revenue" class="input-box" placeholder="例: 5000000" oninput="calc()">
             </div>
             
             <div class="grid grid-cols-2 gap-4">
                 <div>
-                    <label class="text-sm font-bold text-gray-700">Expenses</label>
-                    <input type="number" id="expense" class="input-box" placeholder="1000000" oninput="calc()">
+                    <label class="label-text">経費・控除</label>
+                    <input type="number" id="expense" class="input-box" placeholder="例: 1000000" oninput="calc()">
+                    <p class="text-[10px] text-gray-400 mt-1">※青色申告控除も含めてOK</p>
                 </div>
                 <div>
-                    <label class="text-sm font-bold text-gray-700">Tax Rate (Est. %)</label>
+                    <label class="label-text">想定税率 (%)</label>
                     <input type="number" id="rate" class="input-box" value="30" placeholder="30" oninput="calc()">
-                    <p class="text-xs text-gray-400 mt-1">*Include Income Tax, Residence Tax, Insurance</p>
+                    <p class="text-[10px] text-gray-400 mt-1">※所得税+住民税+国保など</p>
                 </div>
             </div>
 
-            <div class="bg-emerald-50 p-6 rounded-xl mt-6 border border-emerald-100">
+            <div class="bg-emerald-50 p-6 rounded-xl mt-6 border border-emerald-200">
                 <div class="flex justify-between items-center mb-2">
-                    <span class="text-sm text-gray-600">Taxable Income</span>
-                    <span id="taxable" class="font-bold text-gray-800">0</span>
+                    <span class="text-sm text-gray-600">課税所得 (利益)</span>
+                    <span id="taxable" class="font-bold text-gray-800">0円</span>
                 </div>
                 <div class="flex justify-between items-center mb-4">
-                    <span class="text-sm text-red-500 font-bold">Estimated Tax (-)</span>
-                    <span id="tax" class="font-bold text-red-500">0</span>
+                    <span class="text-sm text-red-500 font-bold">税金 (概算) -</span>
+                    <span id="tax" class="font-bold text-red-500">0円</span>
                 </div>
-                <div class="border-t border-emerald-200 pt-4 flex justify-between items-center">
-                    <span class="text-lg font-bold text-emerald-900">Net Take-Home</span>
-                    <span id="net" class="text-3xl font-black text-emerald-600">0</span>
+                <div class="border-t-2 border-emerald-200 pt-4 flex justify-between items-center">
+                    <span class="text-lg font-bold text-emerald-900">あなたの手取り</span>
+                    <span id="net" class="text-3xl font-black text-emerald-600">0円</span>
                 </div>
             </div>
 
-            <div class="mt-6 text-center">
-                <p class="text-xs text-gray-500 mb-2">Paying too much tax?</p>
-                <a href="#" class="block w-full bg-blue-600 text-white font-bold py-3 rounded-lg hover:bg-blue-700 transition">
-                    Find a Tax Accountant (Free) &rarr;
-                </a>
-                <p class="text-xs text-gray-400 mt-2">or Try Cloud Accounting Software</p>
+            <div class="mt-8 pt-6 border-t border-gray-100">
+                <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 text-center">
+                    <p class="text-xs font-bold text-yellow-800 mb-2">💡 税金が高すぎると感じたら？</p>
+                    <a href="#" class="block w-full bg-black text-white font-bold py-3 rounded shadow hover:bg-gray-800 transition">
+                        自分に合う税理士を無料検索 &rarr;
+                    </a>
+                    <p class="text-[10px] text-gray-400 mt-2">または クラウド会計ソフトを無料でお試し</p>
+                </div>
             </div>
         </div>
     </div>
@@ -65,13 +71,13 @@
             const exp = parseFloat(document.getElementById('expense').value) || 0;
             const rate = parseFloat(document.getElementById('rate').value) || 0;
 
-            const taxable = rev - exp;
+            const taxable = rev - exp; // 単純計算
             const taxAmount = taxable > 0 ? taxable * (rate / 100) : 0;
             const net = taxable - taxAmount;
 
-            document.getElementById('taxable').innerText = taxable.toLocaleString();
-            document.getElementById('tax').innerText = Math.floor(taxAmount).toLocaleString();
-            document.getElementById('net').innerText = Math.floor(net).toLocaleString();
+            document.getElementById('taxable').innerText = taxable.toLocaleString() + '円';
+            document.getElementById('tax').innerText = Math.floor(taxAmount).toLocaleString() + '円';
+            document.getElementById('net').innerText = Math.floor(net).toLocaleString() + '円';
         }
     </script>
 </body>
